@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stack Overflow Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{ url_for('static', filename='js/lib/plotly.min.js') }}"></script>
+</head>
+<body>
+    <h1>Visualisasi Stack Overflow</h1>
+
+    <!-- Filter -->
+    <label for="reputation">Pilih Reputasi:</label>
+    <select id="reputation">
+        <option value="high">High</option>
+        <option value="mid">Mid</option>
+        <option value="low">Low</option>
+    </select>
+    <button onclick="loadHeatmap()">Proses</button>
+
+    <!-- Kontainer Heatmap -->
+    <div id="heatmap"></div>
+
+    <!-- Kontainer Sankey -->
+    <h2>Sankey Diagram</h2>
+    <div id="sankey"></div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
