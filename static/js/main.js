@@ -12,19 +12,19 @@ document.querySelectorAll('.tab-button').forEach(button => {
 // ========== VISUALISASI ========== //
 
 // Render Sankey (Plotly.js)
-function renderSankey(data) {
-  Plotly.newPlot('sankey-container', data.data, data.layout);
+function renderSankey(containerId, data) {
+  Plotly.newPlot(containerId, data.data, data.layout);
 }
 
 // Render Heatmap (Plotly.js)
-function renderHeatmap(data) {
-  Plotly.newPlot('heatmap-container', data.data, data.layout);
+function renderHeatmap(containerId, data) {
+  Plotly.newPlot(containerId, data.data, data.layout);
 }
 
 // Render TDA (Cytoscape.js)
-function renderTDA(data) {
+function renderTDA(containerId, data) {
   cytoscape({
-    container: document.getElementById('tda-container'),
+    container: document.getElementById(containerId),
     elements: data.elements,
     style: [
       { selector: 'node', style: { 'label': 'data(id)', 'background-color': '#61bffc' } },
@@ -34,37 +34,30 @@ function renderTDA(data) {
   });
 }
 
-// ========== LOAD DATA ========== //
+// ========== LOAD SEMUA DATA ========== //
 
 async function loadVisuals() {
   // Sankey: 2 Visual
   for (let i = 1; i <= 2; i++) {
     const res = await fetch(`/data/sankey/${i}`);
     const data = await res.json();
-    Plotly.newPlot(`sankey-container-${i}`, data.data, data.layout);
+    renderSankey(`sankey-container-${i}`, data);
   }
 
   // Heatmap: 4 Visual
   for (let i = 1; i <= 4; i++) {
     const res = await fetch(`/data/heatmap/${i}`);
     const data = await res.json();
-    Plotly.newPlot(`heatmap-container-${i}`, data.data, data.layout);
+    renderHeatmap(`heatmap-container-${i}`, data);
   }
 
   // TDA: 2 Visual
   for (let i = 1; i <= 2; i++) {
     const res = await fetch(`/data/tda/${i}`);
     const data = await res.json();
-    cytoscape({
-      container: document.getElementById(`tda-container-${i}`),
-      elements: data.elements,
-      style: [
-        { selector: 'node', style: { 'label': 'data(id)', 'background-color': '#61bffc' } },
-        { selector: 'edge', style: { 'width': 2, 'line-color': '#ccc' } }
-      ],
-      layout: { name: 'cose' }
-    });
+    renderTDA(`tda-container-${i}`, data);
   }
 }
 
+// Panggil ketika halaman dimuat
 loadVisuals();
