@@ -1,30 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Stack Overflow Dashboard</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <script src="{{ url_for('static', filename='js/lib/plotly.min.js') }}"></script>
+  <meta charset="UTF-8">
+  <title>Visualisasi Stack Overflow</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <h1>Visualisasi Stack Overflow</h1>
+  <h1>📊 Visualisasi Stack Overflow</h1>
 
-    <!-- Filter -->
-    <label for="reputation">Pilih Reputasi:</label>
-    <select id="reputation">
-        <option value="high">High</option>
-        <option value="mid">Mid</option>
-        <option value="low">Low</option>
-    </select>
-    <button onclick="loadHeatmap()">Proses</button>
+  <div class="tabs">
+    <button class="tab-button active" data-tab="sankey">🔗 Sankey Diagram</button>
+    <button class="tab-button" data-tab="heatmap">🔥 Heatmap</button>
+    <button class="tab-button" data-tab="tda">🧩 TDA Knotter</button>
+  </div>
 
-    <!-- Kontainer Heatmap -->
-    <div id="heatmap"></div>
+  <div class="tab-content">
+    <div id="sankey" class="tab-panel active">
+      <h2>Sankey Diagram</h2>
+      <div id="sankey-container-1" class="viz-box"></div>
+      <div id="sankey-container-2" class="viz-box"></div>
+    </div>
+    <div id="heatmap" class="tab-panel">
+      <h2>Heatmap</h2>
+      <div id="heatmap-container-1" class="viz-box"></div>
+      <div id="heatmap-container-2" class="viz-box"></div>
+      <div id="heatmap-container-3" class="viz-box"></div>
+      <div id="heatmap-container-4" class="viz-box"></div>
+    </div>
+    <div id="tda" class="tab-panel">
+      <h2>TDA Knotter</h2>
+      <div id="tda-container-1" class="viz-box"></div>
+      <div id="tda-container-2" class="viz-box"></div>
+    </div>
+  </div>
 
-    <!-- Kontainer Sankey -->
-    <h2>Sankey Diagram</h2>
-    <div id="sankey"></div>
+  <!-- Tambahkan library JS -->
+  <script src="{{ url_for('static', filename='js/lib/plotly.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/lib/cytoscape.min.js') }}"></script>
 
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>

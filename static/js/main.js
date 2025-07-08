@@ -1,51 +1,70 @@
-function loadHeatmap() {
-    const rep = document.getElementById("reputation").value;
+// Tab switching
+document.querySelectorAll('.tab-button').forEach(button => {
+  button.addEventListener('click', () => {
+    document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
 
-    fetch(`/get_heatmap_data?reputation=${rep}`)
-        .then(response => response.json())
-        .then(data => {
-            // Misal format data: { z: [[...]], x: [...], y: [...] }
-            const layout = {
-                title: `Heatmap Kontribusi (${rep})`,
-                xaxis: { title: "Target" },
-                yaxis: { title: "Source" }
-            };
-            const trace = {
-                z: data.z,
-                x: data.x,
-                y: data.y,
-                type: 'heatmap',
-                colorscale: 'Viridis'
-            };
-            Plotly.newPlot("heatmap", [trace], layout);
-        });
+    button.classList.add('active');
+    document.getElementById(button.dataset.tab).classList.add('active');
+  });
+});
+
+// ========== VISUALISASI ========== //
+
+// Render Sankey (Plotly.js)
+function renderSankey(data) {
+  Plotly.newPlot('sankey-container', data.data, data.layout);
 }
 
-window.onload = () => {
-    // Load Sankey diagram saat halaman dibuka
-    fetch("/get_sankey_data")
-        .then(response => response.json())
-        .then(data => {
-            const trace = {
-                type: "sankey",
-                orientation: "h",
-                node: {
-                    pad: 15,
-                    thickness: 20,
-                    line: { color: "black", width: 0.5 },
-                    label: data.nodes,
-                    color: data.node_colors
-                },
-                link: {
-                    source: data.links.source,
-                    target: data.links.target,
-                    value: data.links.value
-                }
-            };
-            const layout = {
-                title: "Sankey Diagram",
-                font: { size: 12 }
-            };
-            Plotly.newPlot("sankey", [trace], layout);
-        });
-};
+// Render Heatmap (Plotly.js)
+function renderHeatmap(data) {
+  Plotly.newPlot('heatmap-container', data.data, data.layout);
+}
+
+// Render TDA (Cytoscape.js)
+function renderTDA(data) {
+  cytoscape({
+    container: document.getElementById('tda-container'),
+    elements: data.elements,
+    style: [
+      { selector: 'node', style: { 'label': 'data(id)', 'background-color': '#61bffc' } },
+      { selector: 'edge', style: { 'width': 2, 'line-color': '#ccc' } }
+    ],
+    layout: { name: 'cose' }
+  });
+}
+
+// ========== LOAD DATA ========== //
+
+async function loadVisuals() {
+  // Sankey: 2 Visual
+  for (let i = 1; i <= 2; i++) {
+    const res = await fetch(`/data/sankey/${i}`);
+    const data = await res.json();
+    Plotly.newPlot(`sankey-container-${i}`, data.data, data.layout);
+  }
+
+  // Heatmap: 4 Visual
+  for (let i = 1; i <= 4; i++) {
+    const res = await fetch(`/data/heatmap/${i}`);
+    const data = await res.json();
+    Plotly.newPlot(`heatmap-container-${i}`, data.data, data.layout);
+  }
+
+  // TDA: 2 Visual
+  for (let i = 1; i <= 2; i++) {
+    const res = await fetch(`/data/tda/${i}`);
+    const data = await res.json();
+    cytoscape({
+      container: document.getElementById(`tda-container-${i}`),
+      elements: data.elements,
+      style: [
+        { selector: 'node', style: { 'label': 'data(id)', 'background-color': '#61bffc' } },
+        { selector: 'edge', style: { 'width': 2, 'line-color': '#ccc' } }
+      ],
+      layout: { name: 'cose' }
+    });
+  }
+}
+
+loadVisuals();
