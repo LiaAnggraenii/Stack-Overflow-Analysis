@@ -155,9 +155,9 @@ const formatInfo = document.getElementById("format-info");
 toggleBtn.addEventListener("click", () => {
     if (formatInfo.style.display === "none") {
         formatInfo.style.display = "block";
-        toggleBtn.innerText = "Sembunyikan Format Dataset";
+        toggleBtn.innerText = "Hide Dataset Format";
     } else {
         formatInfo.style.display = "none";
-        toggleBtn.innerText = "Tampilkan Format Dataset";
+        toggleBtn.innerText = "Show Dataset Format";
     }
 });

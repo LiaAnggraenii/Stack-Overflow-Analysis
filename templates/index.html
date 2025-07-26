@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Visualisasi Data Stack Overflow</title>
+  <title>Visualisasi Sankey Diagram and Heatmap</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   <script src="https://cdn.plot.ly/plotly-2.32.0.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <script>
   const uploadedFile = "{{ filename }}";
@@ -12,50 +13,49 @@
 <body>
   <div class="container">
     <!-- Judul Besar -->
-    <h1 class="main-title">Visualisasi Data Stack Overflow</h1>
+    <h1 class="main-title">Visualisasi Sankey Diagram and Heatmap</h1>
 
     <!-- Upload Box -->
     <div class="upload-box" id="drop-area">
       <h2>Upload File Dataset</h2>
-      <p class="file-types">.csv</p>
+      <p class="file-types">Format: <code>.csv</code></p>
 
       <form id="upload-form">
         <input type="file" name="file" id="fileElem" accept=".csv" required hidden>
-        <button type="button" id="uploadTrigger" class="btn-upload">📤 Unggah Sankey</button>
+        <button type="button" id="uploadTrigger" class="btn-upload">📤 Upload File Sankey</button>
       </form>
 
       <form id="upload-heatmap-form">
         <input type="file" name="file" id="heatmapFile" accept=".csv" hidden>
-        <button type="button" id="heatmapTrigger" class="btn-upload">📊 Unggah Heatmap</button>
+        <button type="button" id="heatmapTrigger" class="btn-upload">📊 Upload File Heatmap</button>
       </form>
-
     </div>
 
-    <button id="toggle-format-btn" class="btn-toggle"> Sembunyikan Format Dataset</button>
+    <button id="toggle-format-btn" class="btn-toggle">Hide Dataset Format</button>
     <div class="dataset-info" id="format-info">
       <h3>Dataset Format</h3>
 
-      <p><strong>For Sankey Diagrams:</strong></p>
-      <ul>
-        <li>Regular CSV file (use coma <code>,</code> as separator).</li>
-        <li>Minimum 2 columns (flow from one point to another).</li>
-        <li>The last column can be filled with numbers (number of connections).</li>
-        <li><strong>Example file content:</strong><br>
-            <img src="{{ url_for('static', filename='img/sankey_example.png') }}" class="example-img">
-          </li>
-        </li>
-      </ul>
+      <section>
+        <p><strong>For Sankey Diagrams:</strong></p>
+        <ul>
+          <li>Regular CSV file (use coma <code>,</code> as separator).</li>
+          <li>Minimum 2 columns (flow from one point to another).</li>
+          <li>The last column can be filled with numbers (number of connections).</li>
+          <li><strong>Example file content:</strong></li>
+        </ul>
+        <img src="{{ url_for('static', filename='img/sankey_example.png') }}" class="example-img">
+      </section>
 
-      <p><strong>For Heatmap:</strong></p>
-      <ul>
-        <li>CSV file using semicolon <code>;</code> as separator.</li>
-        <li>First row = column header (e.g.: High;Mid;Low).</li>
-        <li>First Column = row name.</li>
-        <li><strong>Example file content:</strong><br>
-            <img src="{{ url_for('static', filename='img/heatmap_example.png') }}" class="example-img">
-          </li>
-        </li>
-      </ul>
+      <section>
+        <p><strong>For Heatmap:</strong></p>
+        <ul>
+          <li>CSV file using semicolon <code>;</code> as separator.</li>
+          <li>First row = column header (e.g.: High;Mid;Low).</li>
+          <li>First Column = row name.</li>
+          <li><strong>Example file content:</strong></li>
+        </ul>
+        <img src="{{ url_for('static', filename='img/heatmap_example.png') }}" class="example-img">
+      </section>   
     </div>
 
 

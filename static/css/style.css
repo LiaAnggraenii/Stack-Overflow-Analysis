@@ -2,6 +2,7 @@ body {
     font-family: 'Segoe UI', sans-serif;
     background-color: #f9f9f9;
     padding: 2rem;
+    margin: 0;
 }
 
 .main-title {
@@ -30,6 +31,7 @@ body {
 .upload-box h2 {
     color: #555;
     margin-bottom: 10px;
+    font-size: 22px;
 }
 
 .upload-box p {
@@ -40,6 +42,7 @@ body {
 .upload-box .file-types {
     font-weight: bold;
     color: #666;
+    margin-bottom: 15px;
 }
 
 button {
@@ -49,6 +52,7 @@ button {
     border-radius: 8px;
     cursor: pointer;
     margin: 10px 5px;
+    transition: backgorund-color 0.3s ease; 
 }
 
 .btn-upload {
@@ -58,60 +62,6 @@ button {
 
 .btn-upload:hover {
     background-color: #2980b9;
-}
-
-.viz-box {
-    margin-bottom: 30px;
-    border: 1px solid #ccc;
-    padding: 20px;
-    background: #fff;
-    border-radius: 10px;
-    overflow-x: auto;
-}
-
-.viz-box h2 {
-    font-size: 22px;
-    color: #2c3e50;
-    margin-bottom: 20px;
-}
-
-/* === Chart Area === */
-#sankey-chart, #heatmap-chart {
-    width: 100% !important;
-    max-width: 100%;
-    height: auto;
-    margin: 0 auto;
-}
-
-.dataset-info {
-    text-align: left;
-    background-color: #ffffff;
-    border: 1px solid #ddd;
-    padding: 20px;
-    border-radius: 12px;
-    margin: 20px 0;
-    font-size: 14px;
-    color: #444;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-}
-
-.dataset-info h3 {
-    font-size: 18px;
-    margin-bottom: 10px;
-}
-
-.dataset-info ul {
-    padding-left: 20px;
-    margin-bottom: 15px;
-}
-
-.dataset-info pre {
-    background-color: #f8f8f8;
-    padding: 10px;
-    border-radius: 6px;
-    font-family: monospace;
-    font-size: 13px;
-    overflow-x: auto;
 }
 
 .btn-toggle {
@@ -129,9 +79,81 @@ button {
     background-color: #d35400;
 }
 
+.dataset-info {
+    text-align: left;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    font-size: 15px;
+    color: #444;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    line-height: 1.6;
+}
+
+.dataset-info h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #2c3e50;
+}
+
+.dataset-info ul {
+    padding-left: 20px;
+    margin-bottom: 15px;
+}
+
+.dataset-info li {
+    margin-bottom: 6px;
+}
+
+.dataset-info section {
+    margin-bottom: 20px;
+}
+
+.example-img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-top: 10px;
+}
+
+.viz-box {
+    margin-bottom: 30px;
+    border: 1px solid #ccc;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    overflow-x: auto;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.viz-box h2 {
+    font-size: 22px;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* === Chart Area === */
+#sankey-chart, #heatmap-chart {
+    width: 100% !important;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+}
+
 @media (max-width: 768px) {
     .main-title {
         font-size: 22px;
+    }
+
+    .btn-upload,
+    .btn-toggle {
+        width: 100%;
+        margin: 10px 0;
     }
 
     #sankey-chart, #heatmap-chart {

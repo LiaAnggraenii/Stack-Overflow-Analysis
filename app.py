@@ -1,4 +1,3 @@
-# app.py (revisi untuk banyak node)
 from flask import Flask, render_template, request, jsonify
 import io
 import csv
